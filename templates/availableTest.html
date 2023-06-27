@@ -1,0 +1,75 @@
+{% extends "base.html" %} {% load static %}
+{% block title %} 考试报名界面 {% endblock title %}
+{% block content %}
+<script>
+    function toPay() {
+         var node = document.getElementsByName("ck");
+         var res = new Array()
+         var res_fee = new Array()
+         var fee_all = 0
+         for (var i = 0; i < node.length; i++) {
+            if (node[i].checked) {
+                res.push(node[i].getAttribute("exam"))
+                res_fee.push(Number(node[i].getAttribute("fee")))
+            }
+         }
+
+         for (var i = 0; i < res_fee.length; i++) {
+            fee_all += res_fee[i]
+         }
+
+         var data = {
+                "exams": JSON.stringify(res),
+                "fee": fee_all
+         };
+
+         console.log(fee_all)
+         console.log(res)
+         $.ajax({
+            type: "get",
+            url: "/payBill",
+            data: data,
+            dataType: "json",
+            success: function () {
+
+            }
+         });
+         var queryString = $.param(data);
+         var url = "/payBill?" + queryString;
+         console.log(url);
+         window.location.href = url;
+    }
+</script>
+
+<div class="jumbotron">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>考试名称</th>
+            <th>考试费用(单位:RMB)</th>
+            <th>是否参加考试</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for key, value in available.items %}
+        <tr>
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+            <td>
+                <input type="checkbox" name="ck" exam="{{ key }}" fee="{{ value }}">(点击报名)
+            </td>
+        </tr>
+        {% endfor %}
+
+
+        </tbody>
+    </table>
+    <div style="text-align: center;">
+        <button onclick=toPay() class="btn btn-default btn-primary">提交</button>
+    </div>
+
+
+</div>
+{% endblock content %}

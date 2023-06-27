@@ -1,0 +1,242 @@
+<!-- extends表明此页面继承自 base.html 文件 -->
+{% extends "base.html" %}
+{% load static %}
+<!-- 写入 base.html 中定义的 title -->
+{% block title %}
+网站首页
+{% endblock title %}
+
+
+<style>
+      .m-toast-pop {display: none; position: fixed; width: 100%;top: 0;bottom: 0;right: 0;overflow: auto;text-align: center;z-index: 2023;}
+  .m-toast-inner {position: absolute;left:50%;top:50%;width: 100%; transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%);text-align: center;z-index: 2023;}
+  .m-toast-inner-text{display: inline-block;margin: 0 22px; padding: 19px 21px;font-size: 16px;color: #FFFFFF;letter-spacing: 0;line-height: 22px;background: rgba(0,0,0,0.72);border-radius: 10px;z-index: 2023;}
+</style>
+<!-- 写入 base.html 中定义的 content -->
+{% block content %}
+<div id="m-toast-pop" class="m-toast-pop">
+    <div class="m-toast-inner">
+        <div class="m-toast-inner-text" id="m-toast-inner-text"></div>
+    </div>
+</div>
+<script src='{% static "jquery/jquery-3.6.0.min.js" %}'></script>      
+<script charset="gb2312" language="javascript" type="text/javascript">
+  function message(message) {
+    $('#m-toast-inner-text').text(message);
+    $('#m-toast-pop').fadeIn();
+    setTimeout(function() {
+        $('#m-toast-pop').fadeOut();
+    }, 1000);
+  }
+</script>
+
+{% if message == '缴费失败'%}
+<script>
+    message("缴费失败!请重试!");
+    setTimeout(function(){window.location.href="/examInfo"},3000);
+</script>
+{% elif message == "缴费成功" %}
+<script>
+    message("缴费成功!即将跳转到首页!");
+</script>
+{% endif %}
+
+<style>
+    .wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 840px;
+        height: 300px;
+        position: relative;
+        margin: 0 auto;
+        margin-top: 50px;
+    }
+    .box1,.box,.mask{
+        width: 300px;
+        height: 200px;
+        line-height: 200px;
+    }
+    .box1 {
+        /* 每个玻璃卡片 */        
+        margin: 0 5px 0 5px;
+        border-radius: 18px;
+        box-shadow: inset 0 0 2000px rgba(160, 160, 160, 0.3);
+    }
+    .box{
+        /* 卡片正面 */
+        display: flex;        
+        box-sizing: border-box;
+        font-size: 28px;
+        border-radius: 18px;
+        color: #000000;
+        position: absolute;
+        perspective: 1000px;
+        transition: 0.5s ease-in-out;
+        text-align: center;
+        backface-visibility: hidden;        
+        margin-left: -5px;
+    }
+    .box,svg{
+        font-size: 28px;
+        z-index: 200;
+    }
+    .mask{
+        /* 卡片背面 */
+        border-radius: 18px;
+        color: orangered;
+        font-size: 20px;
+        text-align: center;
+        font-family: '微软雅黑';
+        font-weight: bold;
+        position: absolute;
+        backface-visibility:hidden;
+        perspective: 1000px;
+        transform: rotateY(-180deg);
+        transition: 0.5s ease-in-out;
+        backface-visibility: hidden;
+        z-index: 200;
+    }
+    .box,.mask{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+    }
+    .box1:hover .box{
+        transform: rotateY(-180deg);
+    }
+    .box1:hover .mask{
+        transform: rotateY(-360deg);
+    }
+    .jumbotron{
+        background:url('https://resource.neea.edu.cn/project/CET/images/lanrenzhijia01.png') no-repeat center top;
+    }
+    .icon {
+        width: 1em;
+        height: 1em;
+        vertical-align: -0.15em;
+        /* fill: currentColor; */
+        overflow: hidden;
+    }
+
+
+</style>
+<div class="jumbotron">
+    <div class="container">
+        <!-- <h1>欢迎登陆页面！</h1> -->
+        <!-- <div class="container">
+            <div class="row">
+                <div class="col-xs-6 col-sm-3"
+                     style="background-color: #fff; /* 修改背景颜色为白色 */
+                     box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;
+                     text-align: center; border: none;">
+
+                    <img src="../static/resource/img/CET笔试.png"
+                         alt="Image"
+                         style="max-width: 100%;
+                max-height: 100px;
+                vertical-align: middle;
+                display: inline-block;">
+                    <hr>
+                    <p>CET笔试每年开考两次，分别于6月和12月举行，具体考试时间我中心将会在每年年初…</p>
+
+                    <div style="text-align: right">
+                        <a href="#"> >>更多 </a>
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-3"
+                     style="background-color: #fff;box-shadow:
+        inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+                    <img src="../static/resource/img/CET口试.png"
+                         alt="Image"
+                         style="max-width: 100%;
+                max-height: 100px;
+                vertical-align: middle;
+                display: inline-block;">
+                    <hr>
+                    <p>CET口试每年开考两次，分别于5月和11月举行，具体考试时间我中心将会在每年年初…</p>
+                    <div style="text-align: right">
+                        <a href="#"> >>更多 </a>
+                    </div>
+                </div>
+
+                <div class="clearfix visible-xs"></div>
+
+                <div class="col-xs-6 col-sm-3"
+                     style="background-color: #fff;
+        box-shadow:inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+                    <img src="../static/resource/img/考生服务.png"
+                         alt="Image"
+                         style="max-width: 100%;
+                max-height: 100px;
+                vertical-align: middle;
+                display: inline-block;">
+                    <hr>
+
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat.
+                    </p>
+                </div>
+                <div class="col-xs-6 col-sm-3"
+                     style="background-color: #fff;box-shadow:
+        inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+                    <img src="../static/resource/img/项目介绍.png"
+                         alt="Image"
+                         style="max-width: 100%;
+                max-height: 100px;
+                vertical-align: middle;
+                display: inline-block;">
+                    <hr>
+                    <p>全国大学英语四、六级考试(CET)系教育部主办、教育部教育考试院（原教育部考试中…</p>
+                    <div style="text-align: right">
+                        <a href="#"> >>更多 </a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div> -->
+        <div class="wrap">
+            <a href="/register">
+                <div class="box1">
+                    <div class="box">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-yuzhuceqiye"></use>
+                        </svg>
+                        &nbsp;注册
+                    </div>
+                    <div class="mask">没有账户？注册一个！</div>
+                </div>
+            </a>
+
+            <a href="/studentLogin">
+                <div class="box1">
+                    <div class="box">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-denglu"></use>
+                        </svg>
+                        &nbsp;登录
+                    </div>
+                    <div class="mask">登录并查看更多信息！</div>
+                </div>
+            </a>
+
+            <a href="/examInfo">
+                <div class="box1">
+                    <div class="box">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-kaoshixinxi"></use>
+                        </svg>
+                        &nbsp;考试信息
+                    </div>
+                    <div class="mask">需登录后查看！</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+

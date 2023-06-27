@@ -1,0 +1,94 @@
+{% extends "base.html" %} {% load static %}
+{% block title %} 支付界面 {% endblock title %}
+{% block content %}
+
+<style>
+    .show{
+        display: flex;
+        justify-content: space-around;
+    }
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+
+.button-green {
+flex: 1;
+background-color: #00ff00;
+color: #ffffff;
+border: none;
+outline: none;
+font-size: 20px;
+}
+
+
+.button-blue {
+flex: 1;
+background-color: #0000ff;
+color: #ffffff;
+border: none;
+outline: none;
+font-size: 20px;
+}
+
+
+img {
+  /* width: 300px; 让每个图片占用容器宽度的一半 */
+  max-width: 250px; /* 设置最大高度为 300 像素 */
+}
+</style>
+
+<script>
+function toBook() {
+    var myArrayJson = "{{ exams }}";
+    console.log(myArrayJson)
+    var jsonString = myArrayJson.replace(/&quot;/g, '"');
+
+    var myArray = JSON.parse(jsonString);
+    console.log(myArray); // 输出 ["CET4"]
+    var data = {
+        "exams": JSON.stringify(myArray)
+    };
+    $.ajax({
+            type: "get",
+            url: "/insertBookRecord",
+            data: data,
+            dataType: "json",
+            success: function () {
+
+            }
+         });
+         var queryString = $.param(data);
+         var url = "/insertBookRecord?" + queryString;
+         window.location.href = url;
+}
+
+</script>
+{% load static %}
+<div class="container">
+    <div class="jumbotron" style="text-align: center; margin-top: 0px;">
+        <h2>
+            本次总共需要支付:{{all_fee}}元, 考试科目为:{{ exams }}
+        </h2>
+        <div class="show">
+            <div class="button-container">
+                <button class="button-green" style="margin-right: 10px;">微信</button>
+                <img style="margin-right: 10px;" src="{% static 'resource/img/wechat.jpg' %}">                
+            </div>
+            <div class="button-container">
+                
+                <button class="button-blue">支付宝</button>
+                <img src="{% static 'resource/img/alipay.jpg' %}">
+            </div>
+        </div>
+        <div  style="text-align: center;">
+            <br>
+            <button style="width:200px;" onclick=toBook() class="btn btn-default btn-success">支&nbsp;&nbsp;&nbsp;&nbsp;付</button>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

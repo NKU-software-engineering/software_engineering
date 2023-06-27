@@ -1,0 +1,152 @@
+{% extends "base.html" %} {% load static %}
+{% block title %} 考试界面 {% endblock title %}
+{% block content %}
+<!-- 导入 autosize 库的 JS 文件 -->
+<script src="https://unpkg.com/autosize/dist/autosize.min.js"></script>
+<script>
+  // 在文档加载完成后，调用 autosize 函数
+  window.onload = function() {
+    autosize(document.getElementById("myTextarea"));
+    
+    alert();
+  };
+</script>
+<script>
+function toSubmit(name, stu, paper, questions, answers) {
+    console.log(name);
+    var answers = new Array()
+    for(var i =0;i<obj_name.length/4;i++)
+    {
+        answers[i] = "0"
+    }
+    var obj = document.getElementsByName("question");
+      for(var i=0;i<obj_name.length;i++){
+          if(obj[i].checked){
+              if(i%4 ==  0){
+                     answers[i/4] = "A";
+                     answer_num++;
+              }
+              if(i%4 ==  1){
+                     answers[i/4] = "B";
+                     answer_num++;
+              }
+              if(i%4 ==  2){
+                     answers[i/4] = "C";
+                     answer_num++;
+              }
+              if(i%4 ==  3){
+                     answers[i/4] = "D";
+                     answer_num++;
+              }
+          }
+      }
+    for(var i =0;i<answers.length;i++)
+    {
+        if (answers[i] = "0")
+        {
+             alert("您有题目未完成，确认交卷吗？")
+        }
+    }
+    num_an = answers.length
+    var text = document.getElementsByName("question");
+    for(var i=0;i<text.length;i++)
+    {
+        answers[num_an] = test[i].value
+        if(test[i].value==""){alert("您有题目未完成，确认交卷吗？")}
+        if(test[i].value.length>1000){alert("提交失败，主观题答案不可以超过1000个字符。")}
+        num_an++;
+    }
+    var data = {
+        "sid": stu,
+        "paper": paper,
+        "questions": questions,
+        "answers": answers
+    };
+    console.log(data);
+    $.ajax({
+        type: "POST",
+        url: "/insertAnswerRecord",
+        data: data,
+        success: function (data) {
+            // 请求成功时执行的代码
+        },
+        error: function (xhr, status, errorThrown) {
+            // 请求失败时执行的代码
+            alert("请求出错：" + errorThrown);
+        }
+    });
+}
+
+
+
+</script>
+
+<div class="jumbotron">
+    <div>
+        <h1>
+            考试名称:{{title}}
+        </h1>
+
+        <h4>
+            考生学号:{{student}}
+        </h4>
+        <h4>
+            一、单选题部分
+        </h4>
+        <div class="panel-body">
+            <ol>
+                {% for question in questions %}
+                {% if question.qtype == "0" %}
+                <li>
+                    <p style="font-size: 25px;">{{ question.title }}</p>
+                    <div style="font-size: 20px;">
+                        <input type="radio" name="question" value="A">
+                        A.{{question.a}}
+                    </div>
+                    <hr>
+                    <div style="font-size: 20px;">
+                        <input type="radio" name="question" value="B">
+                        B.{{question.b}}
+                    </div>
+                    <hr>
+                    <div style="font-size: 20px;">
+                        <input type="radio" name="question" value="C">
+                        C.{{question.c}}
+                    </div>
+                    <hr>
+                    <div style="font-size: 20px;">
+                        <input type="radio" name="question" value="D">
+                        D.{{question.d}}
+                    </div>
+                    <hr>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ol>
+        </div>
+
+
+        <h4>
+            二、主观题部分
+        </h4>
+        <ol>
+            {% for question in questions %}
+            {% if question.qtype == "1" %}
+            <p style="font-size: 25px;">{{ question.title }}</p>
+            <!-- 创建一个 textarea 元素，并为其设置 rows 和 cols 属性 -->
+            <textarea name="myTextarea" rows="5" cols="80"></textarea>
+            {% endif %}
+            {% endfor %}
+
+        </ol>
+        <div style="text-align: center;">
+            <button type="submit" onclick=toSubmit('{{name}}','{{stu}}','{{paper}}','{{questions}}','{{answers}}')
+                    class="btn btn-default btn-primary">提交
+            </button>
+        </div>
+
+
+    </div>
+
+</div>
+{% endblock content %}

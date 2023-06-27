@@ -1,0 +1,87 @@
+{% extends "base.html" %} {% load static %}
+{% block title %} 教师登录 {% endblock title %}
+{% block content %}
+<style>
+  .col-4{
+    margin: 0 5px 0 5px;
+    border-radius: 18px;
+    box-shadow: inset 0 0 2000px rgba(160, 160, 160, 0.3);
+  }
+  form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-around;
+  }
+  .form-group{
+    width: 80%;
+  }
+  .submit{
+    justify-self: flex-end;
+    align-self: baseline;
+  }
+  
+  .m-toast-pop {display: none; position: fixed; width: 100%;top: 0;bottom: 0;right: 0;overflow: auto;text-align: center;z-index: 2023;}
+  .m-toast-inner {position: absolute;left:50%;top:50%;width: 100%; transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%);text-align: center;z-index: 2023;}
+  .m-toast-inner-text{display: inline-block;margin: 0 22px; padding: 19px 21px;font-size: 16px;color: #FFFFFF;letter-spacing: 0;line-height: 22px;background: rgba(0,0,0,0.72);border-radius: 10px;z-index: 2023;}
+
+</style>
+
+<!-- toast -->
+<div id="m-toast-pop" class="m-toast-pop">
+  <div class="m-toast-inner"><div class="m-toast-inner-text" id="m-toast-inner-text"></div></div>
+</div>
+<script src='{% static "jquery/jquery-3.6.0.min.js" %}'></script>      
+<script charset="gb2312" language="javascript" type="text/javascript">
+  function message(message) {
+    $('#m-toast-inner-text').text(message);
+    $('#m-toast-pop').fadeIn();
+    setTimeout(function() {
+        $('#m-toast-pop').fadeOut();
+    }, 1000);
+  }
+</script>
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-4">
+      <br>
+
+      <fieldset>
+        <legend>
+          &nbsp;教师登录
+        </legend>
+        <br>
+        <form method="post" action="/teacherLogin/">
+          <!--        {% csrf_token %}-->
+          <!-- 账号 -->
+          <div class="form-group">
+            <label >教师工号</label>
+            <input type="text" class="form-control" name="tid" placeholder="输入工号">
+          </div>
+          <!-- 密码 -->
+          <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="输入密码">
+          </div>
+          <!-- 提交按钮 -->
+          <div class="form-group" style="display:grid;"><button type="submit" class="submit btn btn-primary">登录</button></div>
+          
+        </form>
+      </fieldset>
+
+
+      {% if message == '登录成功'%}
+        <script>
+          message("登录成功!即将跳转到批改页面!");
+          setTimeout(function(){window.location.href="/checkAnswer"},3000);
+        </script>
+        {% elif message == "账号或密码不正确" %}
+        <script>
+          message("账号或密码不正确!请重试!");
+        </script>
+        {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

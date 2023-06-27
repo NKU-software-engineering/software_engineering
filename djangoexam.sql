@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : cysql
+ Source Server         : exam
  Source Server Type    : MySQL
- Source Server Version : 80012
+ Source Server Version : 100424
  Source Host           : localhost:3306
  Source Schema         : djangoexam
 
  Target Server Type    : MySQL
- Target Server Version : 80012
+ Target Server Version : 100424
  File Encoding         : 65001
 
- Date: 31/05/2023 15:02:36
+ Date: 10/06/2023 19:59:47
 */
 
 SET NAMES utf8mb4;
@@ -138,12 +138,14 @@ CREATE TABLE `auth_user`  (
   `date_joined` datetime(6) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `username`(`username`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_user
 -- ----------------------------
-INSERT INTO `auth_user` VALUES (1, 'pbkdf2_sha256$216000$kbKdwoNVnxh9$h97m2i9f1MloYQCj/iGPuMApJyGwZrLzqiIk2BUfOAU=', '2023-05-30 08:51:29.743997', 1, 'admin', '', '', 'admin@163.com', 1, 1, '2023-05-30 08:50:50.087913');
+INSERT INTO `auth_user` VALUES (1, 'pbkdf2_sha256$320000$4pAnNkCktIAvds3XjFw6Ug$RKoOjBJ8aCW7s4y6mM0ggQmHMmhOLC5kbQ/NtU26D9c=', '2023-06-05 01:15:11.814163', 1, 'admin', '', '', 'admin@163.com', 1, 1, '2023-05-30 08:50:50.087913');
+INSERT INTO `auth_user` VALUES (2, 'pbkdf2_sha256$320000$ZMBaJHDD3MKZ5D7mZzqvgZ$ayu3uoGdGl+hiMialNreHR+pcI4CKgLe21+4dY1ENjU=', '2023-06-04 03:38:09.649996', 1, 'mjw', '', '', '', 1, 1, '2023-06-04 03:37:59.724409');
+INSERT INTO `auth_user` VALUES (3, 'pbkdf2_sha256$320000$Uko9wJCsZfovNH4sWdA7FL$6k9wtW8l47bmDNntR7B27iLjMxuO13Eu2B/w4ffoWTs=', NULL, 0, 'yy', '', '', '', 0, 1, '2023-06-04 03:40:33.402261');
 
 -- ----------------------------
 -- Table structure for auth_user_groups
@@ -197,11 +199,12 @@ CREATE TABLE `django_admin_log`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `django_admin_log_content_type_id_c4bce8eb`(`content_type_id`) USING BTREE,
   INDEX `django_admin_log_user_id_c564eba6`(`user_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_admin_log
 -- ----------------------------
+INSERT INTO `django_admin_log` VALUES (1, '2023-06-04 03:40:33.573261', '3', 'yy', 1, '[{\"added\": {}}]', 4, 2);
 
 -- ----------------------------
 -- Table structure for django_content_type
@@ -277,7 +280,7 @@ CREATE TABLE `django_session`  (
   `expire_date` datetime(6) NOT NULL,
   PRIMARY KEY (`session_key`) USING BTREE,
   INDEX `django_session_expire_date_a5c62663`(`expire_date`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_session
@@ -287,6 +290,7 @@ INSERT INTO `django_session` VALUES ('heap12bdqpstfhrdan8ca3r0vmzdxbif', 'eyJ1c2
 INSERT INTO `django_session` VALUES ('5uuwlw6cjibhs5pard4ghi8qjsiv4sdj', 'eyJ1c2VybmFtZSI6IjIwMTIyODciLCJpc19sb2dpbiI6dHJ1ZX0:1q4Dti:Wy4Q7bcOUv6PZWdZQX4ygdRZ1St0E3n2FBghXSY5a3Q', '2023-06-14 04:57:22.260798');
 INSERT INTO `django_session` VALUES ('wnmhgklyv9z2j52rugz9wd6qlyswn7bx', 'eyJ1c2VybmFtZSI6IjIwMTIyODciLCJpc19sb2dpbiI6dHJ1ZX0:1q4E4W:DJRptuDPpdnYm23wxfoD2eVo_4UAVotw9daYcDVKVaA', '2023-06-14 05:08:32.370856');
 INSERT INTO `django_session` VALUES ('izxht9jlpo707hb71iqn7ipcxcuep05w', 'eyJ1c2VybmFtZSI6IjIwMTIyODciLCJpc19sb2dpbiI6dHJ1ZX0:1q4F9I:m4WzYjh1vz3HPUosQViv6ik0nifVUWruPRIWdEB-qLo', '2023-06-14 06:17:32.607195');
+INSERT INTO `django_session` VALUES ('n1n5vr9rwofvi8w7sbwjfi80xvh4jrnl', '.eJxVjDsOwjAQBe_iGlnx4i8lfc5g7XptHECOFCcV4u4QKQW0b2beS0Tc1hq3npc4sbgIJU6_G2F65LYDvmO7zTLNbV0mkrsiD9rlOHN-Xg_376Bir9-adEB2xRkN2SZtyWMGcqAwDGflQBtEX0hDsQmVKh54yAEKKArJIIv3B-cKOCU:1q5yoR:15TKE9AQhQ5SbY0zM_-Ro5aKEFMd33E9buafOKXL2TY', '2023-06-19 01:15:11.815161');
 
 -- ----------------------------
 -- Table structure for exam_answer_score
@@ -304,11 +308,14 @@ CREATE TABLE `exam_answer_score`  (
   INDEX `exam_answer_score_qid_id_7b8df6f7`(`qid_id`) USING BTREE,
   INDEX `exam_answer_score_sid_id_af0cc538`(`sid_id`) USING BTREE,
   INDEX `exam_answer_score_tid_id_2aa7aadc`(`tid_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of exam_answer_score
 -- ----------------------------
+INSERT INTO `exam_answer_score` VALUES (1, 'What is the major finding of the UN environmental study?', 'C', 0, 1, '2012287', 1);
+INSERT INTO `exam_answer_score` VALUES (2, 'What is said about water scarcity in some of the poorest regions?', 'B', 2, 2, '2012287', 1);
+INSERT INTO `exam_answer_score` VALUES (3, 'Describe your hometown.', 'Nice', 50, 3, '2012287', 1);
 
 -- ----------------------------
 -- Table structure for exam_book
@@ -322,7 +329,7 @@ CREATE TABLE `exam_book`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `exam_book_sid_id_78e7d34e`(`sid_id`) USING BTREE,
   INDEX `exam_book_tid_id_97e3bdd1`(`tid_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of exam_book
@@ -335,6 +342,7 @@ INSERT INTO `exam_book` VALUES (1, 1, '2012287', 1);
 DROP TABLE IF EXISTS `exam_questionbank`;
 CREATE TABLE `exam_questionbank`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `paper_id` int(11) NULL DEFAULT NULL,
   `title` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `qtype` varchar(40) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `a` varchar(40) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -344,15 +352,15 @@ CREATE TABLE `exam_questionbank`  (
   `answer` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `difficulty` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `score` int(11) NOT NULL,
-  `paper_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `exam_questionbank_paper_id_0eff0063`(`paper_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of exam_questionbank
 -- ----------------------------
-INSERT INTO `exam_questionbank` VALUES (1, '1+1', '0', '0', '1', '2', '3', 'c', 'easy', 2, 1);
+INSERT INTO `exam_questionbank` VALUES (2, 1, 'What is said about water scarcity in some of the poorest regions?', '0', 't is getting so serious that there is li', 't largely accounts for their slow econom', 't can hardly be relieved if no drastic m', 't is primarily caused by the acceleratio', 'B', 'easy', 2);
+INSERT INTO `exam_questionbank` VALUES (1, 1, 'What is the major finding of the UN environmental study?', '0', 'Human activity has rendered Mother Earth', 'Humans are doing more damage to the eart', 'Environmental problems have considerably', 'Environmental damage is more serious in ', 'A', 'easy', 2);
+INSERT INTO `exam_questionbank` VALUES (3, 1, 'Describe your hometown.', '1', '', '', '', '', '', 'easy', 96);
 
 -- ----------------------------
 -- Table structure for exam_record
@@ -366,12 +374,12 @@ CREATE TABLE `exam_record`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `exam_record_sid_id_46867e48`(`sid_id`) USING BTREE,
   INDEX `exam_record_tid_id_a64a6f38`(`tid_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of exam_record
 -- ----------------------------
-INSERT INTO `exam_record` VALUES (1, 90, '2012286', 1);
+INSERT INTO `exam_record` VALUES (1, 52, '2012287', 1);
 
 -- ----------------------------
 -- Table structure for exam_student
@@ -386,12 +394,13 @@ CREATE TABLE `exam_student`  (
   `pwd` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`sid`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of exam_student
 -- ----------------------------
 INSERT INTO `exam_student` VALUES ('2012287', '曹烨', 0, 20, 'caoye@163.com', '123456');
+INSERT INTO `exam_student` VALUES ('2011968', '', 0, 0, '', '123456');
 
 -- ----------------------------
 -- Table structure for exam_teacher
@@ -403,11 +412,12 @@ CREATE TABLE `exam_teacher`  (
   `pwd` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`tid`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of exam_teacher
 -- ----------------------------
+INSERT INTO `exam_teacher` VALUES ('11', 'mm', '11');
 
 -- ----------------------------
 -- Table structure for exam_testpaper
@@ -421,12 +431,11 @@ CREATE TABLE `exam_testpaper`  (
   `fee` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `title`(`title`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of exam_testpaper
 -- ----------------------------
-INSERT INTO `exam_testpaper` VALUES (1, 'CET6', 30, '2023-05-30 23:21:37.000000', 50);
-INSERT INTO `exam_testpaper` VALUES (2, 'CET6-1', 30, '2023-05-30 08:56:58.000000', 50);
+INSERT INTO `exam_testpaper` VALUES (1, 'CET6', 30, '2023-05-30 00:00:00.000000', 25);
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -1,0 +1,102 @@
+{% extends "base.html" %} {% load static %}
+{% block title %} 登录 {% endblock title %}
+{% block content %}
+<style>
+  .col-4{
+    margin: 0 5px 0 5px;
+    border-radius: 18px;
+    box-shadow: inset 0 0 2000px rgba(160, 160, 160, 0.3);
+  }
+  form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-around;
+  }
+  .form-group{
+    width: 80%;
+  }
+  .submit{
+    justify-self: flex-end;
+    align-self: baseline;
+  }  
+
+  .m-toast-pop {display: none; position: fixed; width: 100%;top: 0;bottom: 0;right: 0;overflow: auto;text-align: center;z-index: 2023;}
+  .m-toast-inner {position: absolute;left:50%;top:50%;width: 100%; transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%);text-align: center;z-index: 2023;}
+  .m-toast-inner-text{display: inline-block;margin: 0 22px; padding: 19px 21px;font-size: 16px;color: #FFFFFF;letter-spacing: 0;line-height: 22px;background: rgba(0,0,0,0.72);border-radius: 10px;z-index: 2023;}
+</style>
+<script src='{% static "jquery/jquery-3.6.0.min.js" %}'></script>      
+<script charset="gb2312" language="javascript" type="text/javascript">
+  function message(message) {
+    $('#m-toast-inner-text').text(message);
+    $('#m-toast-pop').fadeIn();
+    setTimeout(function() {
+        $('#m-toast-pop').fadeOut();
+    }, 1000);
+  }
+  function check(){
+      if(document.querySelector('#password').value!=document.querySelector('#confirm').value){
+          document.querySelector('#confirm').value='';
+          message('两次密码不一致！');
+          return false;
+      }
+      document.querySelector('#confirm').setAttribute('disabled',"true");
+      return true;
+  }
+    
+</script>
+
+<!-- toast -->
+<div id="m-toast-pop" class="m-toast-pop">
+  <div class="m-toast-inner"><div class="m-toast-inner-text" id="m-toast-inner-text"></div></div>
+</div>
+
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-4">
+      <br>
+      <fieldset>
+        <legend>
+          &nbsp;学生注册
+        </legend>
+        <br>
+       
+        {% if message == '注册成功'%}
+        <script>
+          message("注册成功!即将跳转到登录页面!");
+          setTimeout(function(){window.location.href="/studentLogin"},3000);
+        </script>
+        {% elif message == "注册失败" %}
+        <script>
+          message("注册失败!已存在该用户!");
+        </script>
+        {% endif %}
+
+        <form method="post" onSubmit="return check()" action="/register/">
+          <!--        {% csrf_token %}-->
+          <!-- 账号 -->
+          <div class="form-group">
+            <label >学生学号</label>
+            <input type="text" required class="form-control" name="sid" placeholder="输入学号">
+          </div>
+          <!-- 密码 -->
+          <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" required class="form-control" id="password" name="password" placeholder="输入密码">
+          </div>
+
+          <div class="form-group">
+            <label for="password">密码确认</label>
+            <input type="password" required class="form-control" id="confirm" name="confirm" placeholder="确认密码">
+          </div>
+          <!-- 提交按钮 -->
+          <div class="form-group" style="display:grid;"><button  type="submit" class="submit btn btn-primary">注册</button></div>
+          
+        </form>
+      </fieldset>
+      
+    </div>
+  </div>
+</div>
+{% endblock content %}

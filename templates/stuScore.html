@@ -1,0 +1,76 @@
+{% extends "base.html" %} {% load static %}
+{% block title %} 考试成绩界面 {% endblock title %}
+/* Border styles */
+<style>
+#table-2 thead, #table-2 tr {
+border-top-width: 1px;
+border-top-style: solid;
+border-top-color: rgb(230, 189, 189);
+}
+#table-2 {
+border-bottom-width: 1px;
+border-bottom-style: solid;
+border-bottom-color: rgb(230, 189, 189);
+}
+
+/* Padding and font style */
+#table-2 td, #table-2 th {
+padding: 5px 10px;
+font-size: 12px;
+font-family: Verdana;
+color: rgb(177, 106, 104);
+}
+
+/* Alternating background colors */
+#table-2 tr:nth-child(even) {
+background: rgb(238, 211, 210)
+}
+#table-2 tr:nth-child(odd) {
+background: #FFF
+}
+
+
+
+
+
+
+
+
+</style>
+{% block content %}
+<table class="table table-hover">
+
+    <thead>
+    <th colspan="3">学生学号:{{ student }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;试卷名称:
+        {{title}}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;试卷总得分:{{score}}
+    </th>
+    </thead>
+</table>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>题号</th>
+        <th>得分</th>
+        <th>答案</th>
+    </tr>
+    </thead>
+
+    <tbody id="table-body1">
+    {% for record in answer_record %}
+    {% if record.score != 1000 %}
+    <tr>
+        {% comment %} 显示题目编号 {% endcomment %}
+        <td>{{ forloop.counter }}</td>
+        {% comment %} 显示得分和选项 {% endcomment %}
+        <td>{{ record.score }}</td>
+        <td>{{ record.answer }}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock content %}

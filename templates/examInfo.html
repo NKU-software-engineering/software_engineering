@@ -1,0 +1,135 @@
+<script>
+    function toStartExam(name, stu)
+    {
+        console.log(name)
+        // console.log可以用来输出，debug比较方便
+        var data = {
+            "sid": stu,
+            "title": name
+        };
+        console.log(data)
+        $.ajax({
+            type: "get",
+            url: "/startExam",
+            data: data,
+            success: function (data) {
+
+            },
+             error: function (xhr, status, errorThrown) { // 请求失败时执行该函数
+                alert("请求出错：" + errorThrown);}
+        });
+
+    }
+    function toStuScore(name, stu)
+    {
+        console.log(name)
+        var data = {
+            "sid": stu,
+            "title": name
+        };
+        console.log(data)
+        $.ajax({
+            type: "get",
+            url: "/stuScore",
+            data: data,
+            success: function (data) {
+
+            },
+             error: function (xhr, status, errorThrown) { // 请求失败时执行该函数
+                alert("请求出错：" + errorThrown);}
+        });
+
+    }
+</script>
+<!-- extends表明此页面继承自 base.html 文件 -->
+{% extends "base.html" %}
+{% load static %}
+
+<!-- 写入 base.html 中定义的 title -->
+{% block title %}
+考试信息页面
+{% endblock title %}
+
+<!-- 写入 base.html 中定义的 content -->
+{% block content %}
+<style>
+    .jumbotron{
+        width: 750px;
+        background-color: rgba(218, 214, 214, 0.3);
+        box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+        border: 1px solid transparent;
+        border-radius: 10px;
+        margin: 0 auto;
+
+    }
+    table *{
+        text-align: center;
+    }
+</style>
+<div class="jumbotron">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>学号</th>
+                <th>考试名称</th>
+                <th>状态</th>
+                <th>ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for key, valu in exams_info.items %}
+        {% if not valu.is_finished %}
+        <tr>
+            <td>{{ student }}</td>
+            <td>{{ valu.name }}</td>
+            <td> 考试未完成</td>
+            <td>
+                <a onclick="toStartExam('{{valu.name}}','{{student}}')"
+                   href="/startExam?sid={{student}}&title={{valu.name}}"
+                   class="btn btn-warning">开始考试</a>
+            </td>
+        </tr>
+        {% else %}
+        {% endif %}
+        {% endfor %}
+
+        {% for key, value in exams_info.items %}
+        {% if value.is_finished and not value.is_marked %}
+        <tr>
+            <td>{{ student }}</td>
+            <td>{{ value.name }}</td>
+            <td> 老师未批阅</td>
+            <td>
+                <a href="#" class="btn btn-primary">等待批阅</a>
+
+            </td>
+        </tr>
+        {% else %}
+        {% endif %}
+        {% endfor %}
+
+
+        {% for key, value in exams_info.items %}
+        {% if value.is_finished and value.is_marked %}
+        <tr>
+            <td>{{ student }}</td>
+            <td>{{ value.name }}</td>
+            <td> 考试已完成</td>
+            <td>
+                <a onclick='toStuScore("{{value.name}}","{{student}}")'
+                    href="/stuScore?sid={{student}}&title={{value.name}}"
+                   class="btn btn-success">查看成绩</a>
+
+            </td>
+        </tr>
+        {% else %}
+        {% endif %}
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock content %}
+
